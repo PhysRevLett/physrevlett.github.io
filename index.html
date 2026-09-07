@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wentao Liu — theoretical physics, black holes, strong-field gravity, gravitational waves, and AI-assisted inference." />
+  <title>Wentao Liu | Theoretical Physics</title>
+  <style>
+    :root{
+      --bg:#f7f8fa;
+      --paper:#ffffff;
+      --text:#17191d;
+      --muted:#626b76;
+      --line:#e6e9ed;
+      --accent:#173b70;
+      --accent-soft:#eef3f9;
+      --max:1080px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.7;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .nav{
+      position:sticky; top:0; z-index:10;
+      background:rgba(255,255,255,.90);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(12px);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:auto; padding:14px 28px;
+      display:flex; align-items:center; justify-content:space-between; gap:24px;
+    }
+    .brand{font-weight:700; letter-spacing:.01em}
+    .nav-links{display:flex; gap:22px; font-size:14px; flex-wrap:wrap}
+    .nav-links a{color:#30363d}
+
+    .wrap{max-width:var(--max); margin:auto; padding:0 28px}
+    .hero{
+      display:grid; grid-template-columns:1.55fr .75fr; gap:64px;
+      padding:92px 0 72px; align-items:center;
+    }
+    .eyebrow{
+      color:var(--accent); font-size:13px; text-transform:uppercase;
+      letter-spacing:.14em; font-weight:700; margin-bottom:18px;
+    }
+    h1{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:62px; line-height:1.03; margin:0 0 18px;
+      letter-spacing:-.025em; font-weight:600;
+    }
+    .subtitle{
+      font-size:21px; color:#30363d; max-width:720px; margin-bottom:22px;
+    }
+    .lead{font-size:17px; color:var(--muted); max-width:730px}
+    .links{display:flex; gap:12px; flex-wrap:wrap; margin-top:30px}
+    .pill{
+      display:inline-block; border:1px solid #cfd6de; background:var(--paper);
+      border-radius:999px; padding:8px 14px; font-size:14px; color:#252a31;
+    }
+    .pill.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+    .pill:hover{text-decoration:none; transform:translateY(-1px)}
+
+    .portrait{
+      width:100%; aspect-ratio:4/5; border-radius:18px;
+      background:
+        linear-gradient(145deg, rgba(23,59,112,.09), rgba(23,59,112,.01)),
+        repeating-linear-gradient(135deg,#fff,#fff 10px,#f4f6f8 10px,#f4f6f8 20px);
+      border:1px solid var(--line);
+      display:flex; align-items:center; justify-content:center;
+      color:#89919b; text-align:center; padding:24px;
+      box-shadow:0 16px 45px rgba(20,30,50,.06);
+    }
+
+    section{
+      padding:74px 0;
+      border-top:1px solid var(--line);
+    }
+    .section-grid{
+      display:grid; grid-template-columns:220px 1fr; gap:46px;
+    }
+    .section-kicker{
+      font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); font-weight:700; padding-top:7px;
+    }
+    h2{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:36px; margin:0 0 18px; line-height:1.2; font-weight:600;
+    }
+    h3{font-size:18px; margin:0 0 6px}
+    p{margin:0 0 16px}
+    .muted{color:var(--muted)}
+
+    .research-grid{
+      display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+      margin-top:28px;
+    }
+    .card{
+      background:var(--paper); border:1px solid var(--line);
+      border-radius:16px; padding:22px;
+    }
+    .card small{color:var(--accent); font-weight:700; letter-spacing:.06em}
+    .card p{color:var(--muted); margin:8px 0 0}
+
+    .pub{
+      padding:23px 0; border-bottom:1px solid var(--line);
+    }
+    .pub:first-child{padding-top:2px}
+    .pub:last-child{border-bottom:none}
+    .pub-title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:21px; line-height:1.35; margin-bottom:7px;
+    }
+    .pub-meta{font-size:14px; color:var(--muted)}
+    .pub-links{font-size:14px; margin-top:7px}
+    .pub-links a{margin-right:13px}
+
+    .code-card{
+      background:#10151d; color:#e9edf3; border-radius:18px;
+      padding:28px; margin-top:16px;
+    }
+    .code-card .repo{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:#9ec1ff}
+    .code-card p{color:#b7c0cc}
+    .code-card a{color:#d7e4ff}
+
+    .contact{
+      display:grid; grid-template-columns:1fr 1fr; gap:24px;
+    }
+    .contact .card strong{display:block; margin-bottom:3px}
+
+    footer{
+      color:#7d8691; font-size:13px; padding:36px 0 52px;
+      border-top:1px solid var(--line);
+    }
+
+    @media (max-width:820px){
+      .hero{grid-template-columns:1fr; gap:34px; padding-top:58px}
+      .portrait{max-width:300px}
+      h1{font-size:48px}
+      .section-grid{grid-template-columns:1fr; gap:12px}
+      .research-grid,.contact{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .wrap,.nav-inner{padding-left:20px;padding-right:20px}
+      .nav-links{gap:12px}
+      h1{font-size:42px}
+      .subtitle{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">Wentao Liu</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#code">Code</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="about" style="border-top:none">
+      <div>
+        <div class="eyebrow">Theoretical Physics · Strong Gravity</div>
+        <h1>Wentao Liu</h1>
+        <div class="subtitle">
+          Black holes, gravitational waves, strong-field gravity, and AI-assisted inference.
+        </div>
+        <p class="lead">
+          I am a researcher in theoretical and computational gravitational physics.
+          My work connects black-hole phenomenology with horizon-scale observations,
+          gravitational-wave physics, and modern simulation-based inference.
+        </p>
+        <div class="links">
+          <a class="pill primary" href="#publications">Selected work</a>
+          <a class="pill" href="https://github.com/PhysRevLett">GitHub</a>
+          <a class="pill" href="#">Google Scholar</a>
+          <a class="pill" href="#">ORCID</a>
+          <a class="pill" href="#">INSPIRE</a>
+          <a class="pill" href="#">CV</a>
+        </div>
+      </div>
+      <div class="portrait">
+        Replace with a clean portrait<br>
+        <small>assets/profile.jpg</small>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="section-grid">
+        <div class="section-kicker">Research</div>
+        <div>
+          <h2>Understanding strong gravity through observable signatures.</h2>
+          <p class="muted">
+            I am interested in how black-hole spacetimes encode new gravitational physics
+            in shadows, ringdown signals, jet observables, and other strong-field phenomena.
+            A parallel thread of my work develops computational tools that make inference
+            from expensive relativistic simulations faster and more reusable.
+          </p>
+
+          <div class="research-grid">
+            <div class="card">
+              <small>01</small>
+              <h3>Black-hole phenomenology</h3>
+              <p>Shadows, photon dynamics, lensing, rotating solutions, and strong-field tests of gravity.</p>
+            </div>
+            <div class="card">
+              <small>02</small>
+              <h3>Gravitational waves</h3>
+              <p>Black-hole perturbations, quasinormal modes, ringdown, and beyond-GR signatures.</p>
+            </div>
+            <div class="card">
+              <small>03</small>
+              <h3>AI for gravity</h3>
+              <p>Neural posterior estimation, normalizing flows, and simulation-based Bayesian inference.</p>
+            </div>
+            <div class="card">
+              <small>04</small>
+              <h3>Numerical methods</h3>
+              <p>Ray tracing, waveform calculations, parameter inference, and scalable computational pipelines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="section-grid">
+        <div class="section-kicker">Selected publications</div>
+        <div>
+          <h2>Recent and representative work.</h2>
+
+          <article class="pub">
+            <div class="pub-title">A Universal Framework for Horizon-Scale Tests of Gravity with Black Hole Shadows</div>
+            <div class="pub-meta">W. Liu et al. · Physical Review D, 2026</div>
+            <div class="pub-links">
+              <a href="#">Journal</a><a href="#">arXiv</a><a href="#">BibTeX</a>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-title">Lorentz violation signatures in the low-energy sector of Hořava gravity from black hole shadow observations</div>
+            <div class="pub-meta">W. Liu et al. · Physics Letters B, 2025</div>
+            <div class="pub-links">
+              <a href="#">Journal</a><a href="#">arXiv</a><a href="#">BibTeX</a>
+            </div>
+          </article>
+
+          <article class="pub">
+            <div class="pub-title">Neural inference for joint black-hole shadow and jet observations</div>
+            <div class="pub-meta">Current project · Normalizing flows + target adaptation</div>
+            <div class="pub-links">
+              <a href="https://github.com/LAAAAAAAAA/NPE4BH">Code</a>
+            </div>
+          </article>
+
+          <p style="margin-top:22px"><a href="#">View all publications →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="code">
+      <div class="section-grid">
+        <div class="section-kicker">Open source</div>
+        <div>
+          <h2>Research code.</h2>
+          <div class="code-card">
+            <div class="repo">github.com/LAAAAAAAAA/NPE4BH</div>
+            <h3 style="margin-top:10px">NPE4BH</h3>
+            <p>
+              Neural posterior estimation for joint black-hole observables,
+              with amortized inference and target-level adaptation.
+            </p>
+            <a href="https://github.com/LAAAAAAAAA/NPE4BH">View repository →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-grid">
+        <div class="section-kicker">Contact</div>
+        <div>
+          <h2>Find me online.</h2>
+          <div class="contact">
+            <div class="card">
+              <strong>Email</strong>
+              <span class="muted">your-email@university.edu</span>
+            </div>
+            <div class="card">
+              <strong>GitHub</strong>
+              <a href="https://github.com/PhysRevLett">@PhysRevLett</a>
+            </div>
+            <div class="card">
+              <strong>Google Scholar</strong>
+              <span class="muted">Add profile link</span>
+            </div>
+            <div class="card">
+              <strong>ORCID / INSPIRE</strong>
+              <span class="muted">Add profile links</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © 2026 Wentao Liu · Built with plain HTML/CSS · Hosted on GitHub Pages
+    </div>
+  </footer>
+</body>
+</html>
