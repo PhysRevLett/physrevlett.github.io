@@ -45,6 +45,7 @@
       line-height: 1.72;
       -webkit-font-smoothing: antialiased;
     }
+    body:has(.search-dialog[open]) { overflow: hidden; }
     a { color: inherit; text-decoration: none; }
     a:hover { color: var(--copper); }
     a:focus-visible,
@@ -583,9 +584,153 @@
       text-align: center;
     }
 
+    /* Portal-style navigation and homepage, aligned with the reference site. */
+    .sidebar {
+      display: block;
+      height: 100vh;
+      min-height: 0;
+      padding: 18px 12px 22px;
+      background: #f5f7f0;
+      scrollbar-color: #bdc2b8 transparent;
+      scrollbar-width: thin;
+    }
+    .identity {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      column-gap: 12px;
+      align-items: center;
+      padding: 0 8px 20px;
+    }
+    .monogram {
+      width: 34px;
+      height: 34px;
+      grid-row: 1 / 4;
+      margin: 0;
+      border: 1px solid rgba(229,199,173,.65);
+      border-radius: 7px;
+      font-size: 14px;
+    }
+    .identity strong { grid-column: 2; font-size: 19px; }
+    .identity span { grid-column: 2; margin-top: 2px; font-size: 9px; letter-spacing: .04em; text-transform: none; }
+    .identity .affiliation { margin-top: 2px; font-family: var(--sans); font-size: 10px; }
+    .side-nav { margin-top: 15px; }
+    .side-nav > ul { margin: 0; padding: 0; list-style: none; }
+    .side-nav > ul > li { margin: 2px 0; }
+    .side-nav a,
+    .side-nav button,
+    .nav-group summary {
+      display: flex;
+      width: 100%;
+      min-height: 38px;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 11px;
+      color: #46505a;
+      background: transparent;
+      border: 0;
+      border-left: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 13px;
+      text-align: left;
+    }
+    .side-nav a:hover,
+    .side-nav button:hover,
+    .side-nav a[aria-current="page"] { color: var(--ink); background: #e7ede0; border-left-color: transparent; }
+    .nav-icon {
+      display: grid;
+      width: 18px;
+      flex: 0 0 18px;
+      place-items: center;
+      color: #6d866f;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .side-nav > ul > li:nth-child(2) .nav-icon { color: #a36a42; }
+    .side-nav > ul > li:nth-child(3) .nav-icon { color: #64829a; }
+    .nav-group { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .nav-group summary { min-height: 34px; color: var(--ink); font-weight: 700; list-style: none; }
+    .nav-group summary::-webkit-details-marker { display: none; }
+    .nav-group summary::before { width: 14px; content: "+"; color: var(--muted); font-family: var(--mono); font-size: 10px; text-align: center; }
+    .nav-group[open] summary::before { content: "−"; }
+    .nav-group ul { margin: 2px 0 0; padding: 0; list-style: none; }
+    .nav-group li a { min-height: 32px; padding: 5px 10px 5px 33px; color: #60686f; font-size: 11px; }
+    .nav-group li a::before { width: 8px; content: "●"; color: #8d7399; font-size: 6px; }
+    .nav-group li a.external::after { margin-left: auto; content: "↗"; color: var(--muted); }
+    .sidebar-language { margin: 17px 9px 0; }
+    .side-meta { margin: 18px 9px 0; padding-top: 15px; border-top: 1px solid var(--line); }
+    .side-meta a { margin: 0 12px 8px 0; font-size: 11px; }
+
+    .hero {
+      min-height: 610px;
+      background:
+        radial-gradient(circle at 80% 48%, transparent 0 63px, rgba(229,199,173,.25) 65px 67px, transparent 69px 118px, rgba(255,255,255,.07) 119px 121px, transparent 123px),
+        radial-gradient(ellipse at 84% 50%, rgba(164,93,53,.3), transparent 21%),
+        linear-gradient(115deg, rgba(18,31,49,.99), rgba(26,46,70,.96) 60%, rgba(12,23,37,.99));
+    }
+    .hero::before {
+      opacity: .4;
+      background-image:
+        radial-gradient(circle at 16% 21%, rgba(255,255,255,.28) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 64% 12%, rgba(255,255,255,.21) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 91% 18%, rgba(255,255,255,.18) 0 1px, transparent 1.5px),
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 250px 215px, 330px 280px, 410px 340px, 84px 84px, 84px 84px;
+    }
+    .hero::after { right: -15vw; bottom: -58%; width: 70vw; height: 70vw; opacity: .7; }
+    .hero-inner { min-height: 610px; grid-template-columns: minmax(0,1fr) minmax(330px,.82fr); gap: 68px; }
+    h1 { line-height: .98; }
+    h1 .hero-name { display: block; font-size: clamp(57px, 6vw, 79px); }
+    h1 .hero-homepage { display: block; margin-top: 12px; font-size: clamp(33px, 4.1vw, 54px); font-style: normal; font-weight: 560; letter-spacing: -.025em; }
+    .hero-aside { align-self: center; display: block; padding: 25px; background: rgba(8,18,30,.25); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(4px); }
+    .hero-aside > p { margin-bottom: 15px; }
+    .focus-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid rgba(255,255,255,.16); border-left: 1px solid rgba(255,255,255,.16); }
+    .focus-tabs button { min-height: 72px; padding: 12px; color: rgba(255,255,255,.65); background: transparent; border: 0; border-right: 1px solid rgba(255,255,255,.16); border-bottom: 1px solid rgba(255,255,255,.16); cursor: pointer; text-align: left; }
+    .focus-tabs button span { display: block; margin-bottom: 4px; color: var(--copper-pale); font-family: var(--mono); font-size: 8px; }
+    .focus-tabs button strong { color: inherit; font-family: var(--serif); font-size: 12px; line-height: 1.25; }
+    .focus-tabs button:hover,
+    .focus-tabs button[aria-selected="true"] { color: #fff; background: rgba(164,93,53,.63); }
+    .focus-detail { padding-top: 18px; }
+    .focus-detail h2 { margin: 0 0 6px; color: #fff; font-size: 23px; line-height: 1.15; }
+    .focus-detail p { min-height: 58px; margin: 0; color: rgba(255,255,255,.65); font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0; line-height: 1.55; text-transform: none; }
+    .focus-detail a { display: inline-block; margin-top: 10px; color: #fff; font-size: 11px; font-weight: 700; }
+
+    .updates-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 30px; border-top: 1px solid var(--line); }
+    .update-item { display: grid; grid-template-columns: 68px minmax(0,1fr); gap: 14px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .update-item time { color: var(--copper); font-family: var(--mono); font-size: 9px; font-weight: 700; }
+    .update-item small { display: inline-block; margin-bottom: 6px; padding: 2px 7px; color: #63736a; background: #e6ecdf; border-radius: 999px; font-size: 8px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+    .update-item h3 { margin: 0 0 5px; font-size: 16px; line-height: 1.35; }
+    .update-item p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+
+    .entry-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; }
+    .entry-card { position: relative; min-height: 170px; padding: 22px; background: #f0f2ea; border: 1px solid var(--line); }
+    .entry-card:hover { color: inherit; border-color: #c8b19e; box-shadow: 0 12px 26px rgba(20,32,51,.06); }
+    .entry-card small { color: var(--copper); font-family: var(--mono); font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .entry-card strong { display: block; margin: 17px 0 7px; color: var(--ink); font-family: var(--serif); font-size: 20px; }
+    .entry-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .entry-card .arrow { position: absolute; top: 18px; right: 18px; color: var(--copper); }
+
+    .search-dialog { width: min(calc(100% - 36px), 660px); max-height: calc(100vh - 40px); padding: 0; color: var(--ink-soft); background: var(--paper); border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(11,22,36,.35); }
+    .search-dialog::backdrop { background: rgba(10,18,29,.72); backdrop-filter: blur(3px); }
+    .search-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px 15px; border-bottom: 1px solid var(--line); }
+    .search-head strong { color: var(--ink); font-family: var(--serif); font-size: 22px; }
+    .search-close { width: 34px; height: 34px; color: var(--muted); background: transparent; border: 1px solid var(--line); cursor: pointer; }
+    .search-body { padding: 19px 22px 24px; }
+    .search-input { width: 100%; padding: 11px 13px; color: var(--ink); background: #fff; border: 1px solid #cfd3c9; border-radius: 0; }
+    .search-hint { margin: 7px 0 15px; color: var(--muted); font-size: 10px; }
+    .search-results { margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
+    .search-results a { display: block; padding: 12px 7px; border-bottom: 1px solid var(--line); }
+    .search-results a:hover { color: var(--copper); background: #eef1e8; }
+    .search-results strong { display: block; color: var(--ink); font-family: var(--serif); font-size: 14px; }
+    .search-results span { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-empty { padding: 20px 7px; color: var(--muted); font-size: 11px; }
+
     @media (max-width: 980px) {
       :root { --sidebar: 230px; }
-      .sidebar { padding-right: 22px; padding-left: 22px; }
+      .sidebar { padding-right: 10px; padding-left: 10px; }
       .hero-inner,
       .content { width: min(calc(100% - 56px), var(--content)); }
       .hero-inner { gap: 42px; }
@@ -642,7 +787,8 @@
         box-shadow: 0 16px 35px rgba(20,32,51,.12);
         list-style: none;
       }
-      .mobile-nav a { display: block; padding: 9px 10px; font-size: 14px; }
+      .mobile-nav a,
+      .mobile-nav button { display: block; width: 100%; padding: 9px 10px; color: var(--ink-soft); background: transparent; border: 0; font-size: 14px; text-align: left; }
       .hero { min-height: auto; }
       .hero-inner {
         min-height: 0;
@@ -651,6 +797,7 @@
         padding: 72px 0 58px;
       }
       .hero-aside { padding: 24px 0 0; border-top: 1px solid rgba(255,255,255,.18); border-left: 0; }
+      .hero-aside { padding: 22px; background: rgba(8,18,30,.25); border: 1px solid rgba(255,255,255,.18); }
       .hero::after { width: 110vw; height: 110vw; }
       .content { width: min(calc(100% - 40px), var(--content)); }
       .section { grid-template-columns: 1fr; gap: 16px; padding: 72px 0; }
@@ -660,10 +807,14 @@
       .work-item { grid-template-columns: 88px minmax(0, 1fr); gap: 18px; }
       .closing { align-items: flex-start; flex-direction: column; }
       .contact-links { flex: none; }
+      .updates-list { grid-template-columns: 1fr; }
+      .entry-grid { grid-template-columns: 1fr; }
+      .entry-card { min-height: 140px; }
     }
 
     @media (max-width: 480px) {
-      h1 { font-size: 54px; }
+      h1 .hero-name { font-size: 51px; }
+      h1 .hero-homepage { font-size: 33px; }
       .hero-inner { width: calc(100% - 40px); }
       .hero-lead { font-size: 22px; }
       .hero-actions { display: block; }
@@ -671,6 +822,8 @@
       .work-item { grid-template-columns: 1fr; gap: 4px; }
       .method-grid { grid-template-columns: 1fr; }
       .method { min-height: 0; }
+      .focus-tabs { grid-template-columns: 1fr; }
+      .focus-tabs button { min-height: 58px; }
       footer { padding-right: 20px; padding-left: 20px; }
     }
 
@@ -691,14 +844,39 @@
     </header>
 
     <nav class="side-nav" aria-label="Primary navigation">
-      <p data-i18n="nav.contents">Contents</p>
       <ul>
-        <li><a href="#about" aria-current="page" data-i18n="nav.home">Home</a></li>
-        <li><a href="#research" data-i18n="nav.research">Research</a></li>
-        <li><a href="#work" data-i18n="nav.work">Selected work</a></li>
-        <li><a href="#methods" data-i18n="nav.methods">Methods &amp; code</a></li>
-        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="#about" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span><span data-i18n="nav.home">Home</span></a></li>
+        <li><a href="#updates"><span class="nav-icon" aria-hidden="true">◷</span><span data-i18n="nav.updates">Recent updates</span></a></li>
+        <li><button type="button" data-open-search><span class="nav-icon" aria-hidden="true">⌕</span><span data-i18n="nav.search">Search</span></button></li>
       </ul>
+
+      <details class="nav-group" open>
+        <summary data-i18n="nav.research">Research</summary>
+        <ul>
+          <li><a href="#black-holes">Black holes</a></li>
+          <li><a href="#gravitational-waves">Gravitational waves</a></li>
+          <li><a href="#quantum-information">Quantum information</a></li>
+          <li><a href="#ai-inference">AI-assisted inference</a></li>
+        </ul>
+      </details>
+
+      <details class="nav-group" open>
+        <summary data-i18n="nav.content">Content</summary>
+        <ul>
+          <li><a href="#work" data-i18n="nav.work">Selected work</a></li>
+          <li><a href="#methods" data-i18n="nav.methods">Methods &amp; code</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </details>
+
+      <details class="nav-group" open>
+        <summary data-i18n="nav.profile">Academic profile</summary>
+        <ul>
+          <li><a class="external" href="https://github.com/PhysRevLett" rel="me">GitHub</a></li>
+          <li><a class="external" href="https://orcid.org/0009-0008-9257-8155" rel="me">ORCID</a></li>
+          <li><a class="external" href="https://github.com/LAAAAAAAAA/NPE4BH">NPE4BH</a></li>
+        </ul>
+      </details>
     </nav>
 
     <div class="language-switch sidebar-language" role="group" aria-label="Language">
@@ -706,21 +884,7 @@
       <button type="button" data-language-button="en" aria-pressed="true">EN</button>
     </div>
 
-    <div class="research-index" aria-label="Research areas">
-      <p>Research areas</p>
-      <ul>
-        <li>Black holes</li>
-        <li>Strong gravity</li>
-        <li>Gravitational waves</li>
-        <li>Numerical relativity</li>
-        <li>Quantum information</li>
-        <li>AI-assisted inference</li>
-      </ul>
-    </div>
-
     <div class="side-meta">
-      <a href="https://github.com/PhysRevLett" rel="me">GitHub ↗</a><br>
-      <a href="https://orcid.org/0009-0008-9257-8155" rel="me">ORCID ↗</a><br>
       © 2026 Wentao Liu
     </div>
   </aside>
@@ -737,9 +901,11 @@
         <ul>
           <li><a href="#about" data-i18n="nav.home">Home</a></li>
           <li><a href="#research" data-i18n="nav.research">Research</a></li>
+          <li><a href="#updates" data-i18n="nav.updates">Recent updates</a></li>
           <li><a href="#work" data-i18n="nav.work">Selected work</a></li>
           <li><a href="#methods" data-i18n="nav.methods">Methods &amp; code</a></li>
           <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          <li><button type="button" data-open-search data-i18n="nav.search">Search</button></li>
         </ul>
       </nav>
     </details>
@@ -751,8 +917,8 @@
         <div class="hero-inner">
           <div>
             <p class="kicker">Theoretical physics · Strong-field gravity</p>
-            <h1>Wentao<br>Liu</h1>
-            <p class="hero-lead" data-i18n="hero.lead">Probing gravity where spacetime is at its most extreme.</p>
+            <h1><span class="hero-name">Wentao Liu</span><span class="hero-homepage" data-i18n="hero.homepage">Research homepage</span></h1>
+            <p class="hero-lead" data-i18n="hero.lead">An open research entry point for strong gravity and black-hole physics.</p>
             <p class="hero-summary" data-i18n="hero.summary">
               I work at the intersection of black-hole physics, gravitational waves,
               numerical relativity, quantum information, and AI-assisted inference.
@@ -760,28 +926,34 @@
               black holes, quasinormal modes, and quantum correlations in curved spacetime.
             </p>
             <div class="hero-actions">
+              <a class="text-link" href="#research"><span data-i18n="hero.explore">Explore research</span> <span aria-hidden="true">↓</span></a>
               <a class="text-link" href="#work"><span data-i18n="hero.work">Selected work</span> <span aria-hidden="true">↓</span></a>
               <a class="text-link" href="https://github.com/PhysRevLett">GitHub <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
-          <div class="hero-aside" aria-label="Research focus">
-            <p data-i18n="hero.focus">Current focus</p>
-            <ol>
-              <li>Horizon-scale observables</li>
-              <li>Ringdown &amp; waveforms</li>
-              <li>Relativistic simulation</li>
-              <li>Simulation-based inference</li>
-            </ol>
+          <div class="hero-aside" aria-label="Research index">
+            <p data-i18n="hero.focus">Research index · Select a topic</p>
+            <div class="focus-tabs" role="tablist" aria-label="Research focus">
+              <button type="button" role="tab" aria-selected="true" data-focus="black-holes"><span>01</span><strong>Black-hole phenomenology</strong></button>
+              <button type="button" role="tab" aria-selected="false" data-focus="gravitational-waves"><span>02</span><strong>Gravitational waves</strong></button>
+              <button type="button" role="tab" aria-selected="false" data-focus="quantum-information"><span>03</span><strong>Quantum information</strong></button>
+              <button type="button" role="tab" aria-selected="false" data-focus="ai-inference"><span>04</span><strong>AI-assisted inference</strong></button>
+            </div>
+            <div class="focus-detail" role="tabpanel">
+              <h2 id="focus-name">Black-hole phenomenology</h2>
+              <p id="focus-description">Horizons, shadows, photon dynamics, lensing, rotating solutions, and horizon-scale tests of gravity.</p>
+              <a id="focus-link" href="#black-holes"><span data-i18n="focus.open">Open research topic</span> ↓</a>
+            </div>
           </div>
         </div>
       </header>
 
       <div class="content">
-        <section class="section" id="research">
+        <section class="section" id="research" data-search-item data-search-href="#research">
           <p class="section-label">01 / Research <span data-i18n="research.label">Questions &amp; themes</span></p>
           <div>
-            <h2 data-i18n="research.heading">Strong gravity, from geometry to data.</h2>
+            <h2 data-i18n="research.heading" data-search-title>Strong gravity, from geometry to data.</h2>
             <p class="section-intro" data-i18n="research.intro">
               My research follows the full chain from relativistic theory and numerical
               calculation to signatures that can be tested with black-hole images and
@@ -789,80 +961,123 @@
             </p>
 
             <ol class="research-list">
-              <li class="research-item">
+              <li class="research-item" id="black-holes" data-search-item data-search-href="#black-holes">
                 <span class="number">01</span>
-                <h3>Black-hole phenomenology</h3>
+                <h3 data-search-title>Black-hole phenomenology</h3>
                 <p data-i18n="research.blackholes">Horizons, shadows, photon dynamics, gravitational lensing, rotating solutions, and precision tests of gravity in the strong-field regime.</p>
               </li>
-              <li class="research-item">
+              <li class="research-item" id="gravitational-waves" data-search-item data-search-href="#gravitational-waves">
                 <span class="number">02</span>
-                <h3>Gravitational waves</h3>
+                <h3 data-search-title>Gravitational waves</h3>
                 <p data-i18n="research.waves">Black-hole perturbations, quasinormal modes, ringdown spectroscopy, waveform structure, and observable signatures beyond general relativity.</p>
               </li>
-              <li class="research-item">
+              <li class="research-item" id="quantum-information" data-search-item data-search-href="#quantum-information">
                 <span class="number">03</span>
-                <h3>Numerical relativity &amp; quantum information</h3>
+                <h3 data-search-title>Numerical relativity &amp; quantum information</h3>
                 <p data-i18n="research.numerical">Computational spacetime dynamics and information-theoretic viewpoints that connect geometry, evolution, and the structure of gravitational systems.</p>
               </li>
-              <li class="research-item">
+              <li class="research-item" id="ai-inference" data-search-item data-search-href="#ai-inference">
                 <span class="number">04</span>
-                <h3>AI-assisted inference</h3>
+                <h3 data-search-title>AI-assisted inference</h3>
                 <p data-i18n="research.ai">Neural posterior estimation, normalizing flows, and simulation-based Bayesian inference for expensive relativistic models and joint observables.</p>
               </li>
             </ol>
           </div>
         </section>
 
-        <section class="section" id="work">
-          <p class="section-label">02 / Selected work <span data-i18n="work.label">Recent &amp; representative</span></p>
+        <section class="section" id="updates" data-search-item data-search-href="#updates">
+          <p class="section-label">02 / Recent updates <span data-i18n="updates.label">Publications &amp; code</span></p>
           <div>
-            <h2 data-i18n="work.heading">Research notes and active projects.</h2>
+            <h2 data-i18n="updates.heading" data-search-title>Recent updates.</h2>
+            <p class="section-intro" data-i18n="updates.intro">Recent publications, open-source work, and additions to this research map.</p>
+
+            <div class="updates-list">
+              <article class="update-item" data-search-item data-search-href="#work">
+                <time datetime="2026-07">2026 · 07</time>
+                <div>
+                  <small>Publication</small>
+                  <h3 data-search-title>Physical Review D: horizon-scale tests of gravity</h3>
+                  <p data-i18n="updates.prd">A universal framework connecting parametrized black-hole spacetimes to shadow observables.</p>
+                </div>
+              </article>
+              <article class="update-item" data-search-item data-search-href="#project">
+                <time datetime="2026">2026</time>
+                <div>
+                  <small>Open source</small>
+                  <h3 data-search-title>NPE4BH research code</h3>
+                  <p data-i18n="updates.code">A reproducible workflow for fast Bayesian inference from joint black-hole shadow and jet-power observables.</p>
+                </div>
+              </article>
+              <article class="update-item" data-search-item data-search-href="#work">
+                <time datetime="2025-08">2025 · 08</time>
+                <div>
+                  <small>Publication</small>
+                  <h3 data-search-title>JHEP: correlations in a Lorentz-violating BTZ background</h3>
+                  <p data-i18n="updates.jhep">Quantum and classical correlations respond differently to Lorentz symmetry breaking in curved spacetime.</p>
+                </div>
+              </article>
+              <article class="update-item" data-search-item data-search-href="#work">
+                <time datetime="2025-08">2025 · 08</time>
+                <div>
+                  <small>Publication</small>
+                  <h3 data-search-title>Physics Letters B: Hořava gravity shadows</h3>
+                  <p data-i18n="updates.plb">Black-hole shadow observations constrain Lorentz violation in the low-energy sector of Hořava gravity.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="work" data-search-item data-search-href="#work">
+          <p class="section-label">03 / Selected work <span data-i18n="work.label">Recent &amp; representative</span></p>
+          <div>
+            <h2 data-i18n="work.heading" data-search-title>Research notes and active projects.</h2>
             <p class="section-intro" data-i18n="work.intro">
               A compact selection spanning horizon-scale tests of gravity, black-hole
               observations, and modern statistical inference.
             </p>
 
             <div class="work-list">
-              <article class="work-item">
+              <article class="work-item" data-search-item data-search-href="#work">
                 <div class="work-type">Publication<br>2026</div>
                 <div>
-                  <h3>Universal framework for horizon-scale tests of gravity with black hole shadows</h3>
+                  <h3 data-search-title>Universal framework for horizon-scale tests of gravity with black hole shadows</h3>
                   <p>W. Liu, Y. Liu, D. Wu &amp; Y.-X. Liu · Physical Review D 114, L021503 (2026)</p>
                   <a href="https://journals.aps.org/prd/abstract/10.1103/66x9-zj16">Journal ↗</a>
                   <a href="https://arxiv.org/abs/2511.06017">arXiv ↗</a>
                 </div>
               </article>
-              <article class="work-item">
+              <article class="work-item" data-search-item data-search-href="#work">
                 <div class="work-type">Publication<br>2025</div>
                 <div>
-                  <h3>Lorentz violation signatures in the low-energy sector of Hořava gravity from black hole shadow observations</h3>
+                  <h3 data-search-title>Lorentz violation signatures in the low-energy sector of Hořava gravity from black hole shadow observations</h3>
                   <p>W. Liu, H. Huang, D. Wu &amp; J. Wang · Physics Letters B 868, 139812 (2025)</p>
                   <a href="https://doi.org/10.1016/j.physletb.2025.139812">Journal ↗</a>
                   <a href="https://arxiv.org/abs/2506.13504">arXiv ↗</a>
                 </div>
               </article>
-              <article class="work-item">
+              <article class="work-item" data-search-item data-search-href="#work">
                 <div class="work-type">Publication<br>2025</div>
                 <div>
-                  <h3>Harvesting correlations from BTZ black hole coupled to a Lorentz-violating vector field</h3>
+                  <h3 data-search-title>Harvesting correlations from BTZ black hole coupled to a Lorentz-violating vector field</h3>
                   <p>X. Liu, W. Liu, Z. Liu &amp; J. Wang · JHEP 08, 094 (2025)</p>
                   <a href="https://link.springer.com/article/10.1007/JHEP08%282025%29094">Journal ↗</a>
                   <a href="https://arxiv.org/abs/2503.06404">arXiv ↗</a>
                 </div>
               </article>
-              <article class="work-item">
+              <article class="work-item" data-search-item data-search-href="#work">
                 <div class="work-type">Publication<br>2023</div>
                 <div>
-                  <h3>QNMs of slowly rotating Einstein–Bumblebee black hole</h3>
+                  <h3 data-search-title>QNMs of slowly rotating Einstein–Bumblebee black hole</h3>
                   <p>W. Liu, X. Fang, J. Jing &amp; J. Wang · European Physical Journal C 83, 83 (2023)</p>
                   <a href="https://link.springer.com/article/10.1140/epjc/s10052-023-11231-5">Journal ↗</a>
                   <a href="https://arxiv.org/abs/2211.03156">arXiv ↗</a>
                 </div>
               </article>
-              <article class="work-item">
+              <article class="work-item" data-search-item data-search-href="#project">
                 <div class="work-type">Active project</div>
                 <div>
-                  <h3>Fast Bayesian inference from black-hole shadows and jet power</h3>
+                  <h3 data-search-title>Fast Bayesian inference from black-hole shadows and jet power</h3>
                   <p>Conditional normalizing flows, amortized inference, physics-aware refinement, and reproducible posterior sampling.</p>
                   <a href="https://github.com/LAAAAAAAAA/NPE4BH">View NPE4BH on GitHub ↗</a>
                 </div>
@@ -871,10 +1086,10 @@
           </div>
         </section>
 
-        <section class="section" id="methods">
-          <p class="section-label">03 / Methods <span data-i18n="methods.label">Computation &amp; inference</span></p>
+        <section class="section" id="methods" data-search-item data-search-href="#methods">
+          <p class="section-label">04 / Methods <span data-i18n="methods.label">Computation &amp; inference</span></p>
           <div>
-            <h2 data-i18n="methods.heading">Tools for difficult inverse problems.</h2>
+            <h2 data-i18n="methods.heading" data-search-title>Tools for difficult inverse problems.</h2>
             <p class="section-intro" data-i18n="methods.intro">
               The work combines analytic reasoning with numerical experiments and
               statistically principled inference, with an emphasis on reproducible pipelines.
@@ -899,12 +1114,38 @@
               </div>
             </div>
 
-            <article class="code-feature">
+            <article class="code-feature" id="project" data-search-item data-search-href="#project">
               <small>Open source · Featured repository</small>
-              <h3>NPE4BH</h3>
+              <h3 data-search-title>NPE4BH</h3>
               <p data-i18n="methods.code">A reproducible implementation of conditional neural posterior estimation for joint black-hole shadow and jet-power observables.</p>
               <a href="https://github.com/LAAAAAAAAA/NPE4BH">github.com/LAAAAAAAAA/NPE4BH ↗</a>
             </article>
+          </div>
+        </section>
+
+        <section class="section" id="content-entries" data-search-item data-search-href="#content-entries">
+          <p class="section-label">05 / Content <span data-i18n="content.label">Entry points</span></p>
+          <div>
+            <h2 data-i18n="content.heading" data-search-title>Content entry points.</h2>
+            <p class="section-intro" data-i18n="content.intro">Move from research questions to publications, reproducible implementation, and persistent academic records.</p>
+
+            <nav class="entry-grid" aria-label="Content entry points">
+              <a class="entry-card" href="#work">
+                <small>Publications</small><span class="arrow" aria-hidden="true">↗</span>
+                <strong data-i18n="content.papers.title">Selected work</strong>
+                <p data-i18n="content.papers.body">Journal articles and preprints on strong gravity, black-hole observables, QNMs, and quantum information.</p>
+              </a>
+              <a class="entry-card" href="https://github.com/LAAAAAAAAA/NPE4BH">
+                <small>Open source</small><span class="arrow" aria-hidden="true">↗</span>
+                <strong>NPE4BH</strong>
+                <p data-i18n="content.code.body">Conditional normalizing flows, physics-aware refinement, and posterior sampling for black-hole inference.</p>
+              </a>
+              <a class="entry-card" href="https://orcid.org/0009-0008-9257-8155">
+                <small>Academic profile</small><span class="arrow" aria-hidden="true">↗</span>
+                <strong>ORCID</strong>
+                <p data-i18n="content.profile.body">Persistent researcher identity and publication metadata. Recent publication affiliation: Lanzhou University.</p>
+              </a>
+            </nav>
           </div>
         </section>
 
@@ -921,24 +1162,42 @@
       </div>
     </main>
 
-    <footer>© 2026 Wentao Liu · Plain HTML &amp; CSS · Hosted on GitHub Pages</footer>
+    <footer>© 2026 Wentao Liu · Plain HTML, CSS &amp; JavaScript · Hosted on GitHub Pages</footer>
   </div>
+
+  <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-title">
+    <div class="search-head">
+      <strong id="search-title" data-i18n="search.title">Search this research site</strong>
+      <form method="dialog"><button class="search-close" type="submit" aria-label="Close search">×</button></form>
+    </div>
+    <div class="search-body">
+      <input class="search-input" id="site-search" type="search" autocomplete="off" placeholder="Search topics, papers, journals, methods…">
+      <p class="search-hint" data-i18n="search.hint">Try “shadow”, “QNM”, “Lorentz violation”, or “normalizing flows”.</p>
+      <ul class="search-results" id="search-results" aria-live="polite"></ul>
+    </div>
+  </dialog>
 
   <script>
     (() => {
       const zh = {
         "skip": "跳到正文",
-        "nav.contents": "导航",
         "nav.home": "首页",
+        "nav.updates": "近期动态",
+        "nav.search": "搜索",
         "nav.research": "研究方向",
+        "nav.content": "内容",
         "nav.work": "代表工作",
         "nav.methods": "方法与代码",
         "nav.contact": "联系",
+        "nav.profile": "学术主页",
         "nav.menu": "菜单",
-        "hero.lead": "探索时空最极端区域中的引力规律。",
+        "hero.homepage": "学术主页",
+        "hero.lead": "面向 strong gravity 与 black-hole physics 的开放研究入口。",
         "hero.summary": "我的工作聚焦 black-hole physics、gravitational waves、numerical relativity、quantum information 与 AI-assisted inference。近期研究包括 horizon-scale tests of gravity、Lorentz-violating black holes、quasinormal modes，以及 curved spacetime 中的 quantum correlations。",
+        "hero.explore": "研究地图",
         "hero.work": "代表工作",
-        "hero.focus": "当前方向",
+        "hero.focus": "Research index · 选择方向",
+        "focus.open": "进入研究方向",
         "research.label": "问题与主题",
         "research.heading": "强引力：从几何到数据。",
         "research.intro": "我的研究贯穿 relativistic theory、numerical calculation 与可观测信号，关注如何利用 black-hole images 和 gravitational-wave observations 检验强场引力。",
@@ -946,6 +1205,13 @@
         "research.waves": "围绕 black-hole perturbations、quasinormal modes (QNMs)、ringdown spectroscopy 与 waveform structure，寻找 general relativity 之外的可观测信号。",
         "research.numerical": "结合 numerical relativity 与 quantum-information perspectives，理解 spacetime dynamics、几何演化和引力系统中的信息结构。",
         "research.ai": "发展 neural posterior estimation、normalizing flows 与 simulation-based Bayesian inference，用于高成本 relativistic models 和联合观测量。",
+        "updates.label": "论文与代码",
+        "updates.heading": "近期动态。",
+        "updates.intro": "近期 publications、open-source work，以及这个 research map 的更新。",
+        "updates.prd": "建立连接 parametrized black-hole spacetimes 与 shadow observables 的统一框架。",
+        "updates.code": "利用联合 black-hole shadow 与 jet-power observables 进行快速 Bayesian inference 的可复现流程。",
+        "updates.jhep": "研究 Lorentz symmetry breaking 如何以不同方式影响 curved spacetime 中的 quantum 与 classical correlations。",
+        "updates.plb": "利用 black-hole shadow observations 约束 Hořava gravity 低能区中的 Lorentz violation。",
         "work.label": "近期与代表性成果",
         "work.heading": "代表论文与 open-source project。",
         "work.intro": "以下工作覆盖 horizon-scale tests of gravity、black-hole observations 与 modern statistical inference；论文题目、期刊名和项目信息保留英文。",
@@ -957,45 +1223,162 @@
         "methods.bayesian": "Posterior estimation，以及对 multi-modal observations 的 uncertainty-aware interpretation。",
         "methods.ml": "使用 normalizing flows 与 neural surrogates，实现快速、可复用的 simulation-based inference。",
         "methods.code": "面向 black-hole shadow 与 jet-power observables 的 conditional neural posterior estimation 可复现实现。",
+        "content.label": "内容入口",
+        "content.heading": "内容入口。",
+        "content.intro": "从研究问题进入 publications、reproducible implementation 与持久的 academic records。",
+        "content.papers.title": "代表工作",
+        "content.papers.body": "关于 strong gravity、black-hole observables、QNMs 与 quantum information 的 journal articles 和 preprints。",
+        "content.code.body": "用于 black-hole inference 的 conditional normalizing flows、physics-aware refinement 与 posterior sampling。",
+        "content.profile.body": "持久的 researcher identity 与 publication metadata；近期论文 affiliation 为 Lanzhou University。",
         "contact.heading": "科研交流与合作",
         "contact.body": "近期论文 affiliation 为 Lanzhou University。当前代码与可复现材料可在 GitHub 查看；ORCID 提供持久的 researcher record。",
-        "contact.link": "访问 GitHub"
+        "contact.link": "访问 GitHub",
+        "search.title": "搜索研究主页",
+        "search.hint": "可尝试搜索 “shadow”、“QNM”、“Lorentz violation” 或 “normalizing flows”。"
       };
 
-      const nodes = document.querySelectorAll("[data-i18n]");
-      nodes.forEach((node) => {
-        node.dataset.en = node.textContent.trim();
-      });
+      const focusTopics = {
+        "black-holes": {
+          title: "Black-hole phenomenology",
+          en: "Horizons, shadows, photon dynamics, lensing, rotating solutions, and horizon-scale tests of gravity.",
+          zh: "研究 horizons、shadows、photon dynamics、lensing 与 horizon-scale tests of gravity。"
+        },
+        "gravitational-waves": {
+          title: "Gravitational waves",
+          en: "Perturbations, quasinormal modes, ringdown spectroscopy, waveforms, and signatures beyond general relativity.",
+          zh: "围绕 perturbations、quasinormal modes、ringdown spectroscopy 与超越 general relativity 的信号。"
+        },
+        "quantum-information": {
+          title: "Quantum information",
+          en: "Correlation harvesting, detector models, and quantum information in Lorentz-violating curved spacetimes.",
+          zh: "研究 correlation harvesting、detector models 与 Lorentz-violating curved spacetimes 中的 quantum information。"
+        },
+        "ai-inference": {
+          title: "AI-assisted inference",
+          en: "Conditional normalizing flows and simulation-based inference for joint black-hole observables.",
+          zh: "利用 conditional normalizing flows 与 simulation-based inference 联合分析 black-hole observables。"
+        }
+      };
 
+      const nodes = [...document.querySelectorAll("[data-i18n]")];
+      nodes.forEach((node) => { node.dataset.en = node.textContent.trim(); });
       const description = document.querySelector('meta[name="description"]');
       const englishDescription = description ? description.content : "";
-      const chineseDescription = "Wentao Liu 的学术主页：black holes、strong gravity、gravitational waves、numerical relativity、quantum information 与 AI-assisted inference。";
+      const chineseDescription = "Wentao Liu 的学术主页：black holes、strong gravity、gravitational waves、quantum information 与 AI-assisted inference。";
+      const focusName = document.querySelector("#focus-name");
+      const focusDescription = document.querySelector("#focus-description");
+      const focusLink = document.querySelector("#focus-link");
+      const searchDialog = document.querySelector("#search-dialog");
+      const searchInput = document.querySelector("#site-search");
+      const searchResults = document.querySelector("#search-results");
+      let currentLanguage = "en";
+      let currentFocus = "black-holes";
+
+      const renderFocus = () => {
+        const topic = focusTopics[currentFocus];
+        focusName.textContent = topic.title;
+        focusDescription.textContent = currentLanguage === "zh" ? topic.zh : topic.en;
+        focusLink.href = `#${currentFocus}`;
+        document.querySelectorAll("[data-focus]").forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.focus === currentFocus));
+        });
+      };
+
+      const searchableItems = () => [...document.querySelectorAll("[data-search-item]")].map((item) => {
+        const titleNode = item.querySelector("[data-search-title]") || item;
+        return {
+          title: titleNode.textContent.trim(),
+          text: item.textContent.replace(/\s+/g, " ").trim(),
+          href: item.dataset.searchHref || "#about"
+        };
+      }).filter((item, index, all) => all.findIndex((other) => other.title === item.title) === index);
+
+      const renderSearch = (query = "") => {
+        const normalized = query.trim().toLocaleLowerCase();
+        const items = searchableItems().filter((item) => !normalized || item.text.toLocaleLowerCase().includes(normalized)).slice(0, 8);
+        searchResults.replaceChildren();
+        if (!items.length) {
+          const empty = document.createElement("li");
+          empty.className = "search-empty";
+          empty.textContent = currentLanguage === "zh" ? "没有找到匹配内容。" : "No matching content found.";
+          searchResults.append(empty);
+          return;
+        }
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          const link = document.createElement("a");
+          const title = document.createElement("strong");
+          const excerpt = document.createElement("span");
+          link.href = item.href;
+          title.textContent = item.title;
+          excerpt.textContent = item.text;
+          link.append(title, excerpt);
+          link.addEventListener("click", () => searchDialog.close());
+          li.append(link);
+          searchResults.append(li);
+        });
+      };
 
       const setLanguage = (language) => {
-        const selected = language === "zh" ? "zh" : "en";
-        document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
-        document.documentElement.dataset.language = selected;
+        currentLanguage = language === "zh" ? "zh" : "en";
+        document.documentElement.lang = currentLanguage === "zh" ? "zh-CN" : "en";
+        document.documentElement.dataset.language = currentLanguage;
         nodes.forEach((node) => {
-          node.textContent = selected === "zh" ? zh[node.dataset.i18n] : node.dataset.en;
+          node.textContent = currentLanguage === "zh" ? (zh[node.dataset.i18n] || node.dataset.en) : node.dataset.en;
         });
         document.querySelectorAll("[data-language-button]").forEach((button) => {
-          button.setAttribute("aria-pressed", String(button.dataset.languageButton === selected));
+          button.setAttribute("aria-pressed", String(button.dataset.languageButton === currentLanguage));
         });
         document.querySelectorAll(".language-switch").forEach((group) => {
-          group.setAttribute("aria-label", selected === "zh" ? "语言选择" : "Language selection");
+          group.setAttribute("aria-label", currentLanguage === "zh" ? "语言切换" : "Language selection");
         });
-        document.title = selected === "zh"
+        searchInput.placeholder = currentLanguage === "zh"
+          ? "搜索方向、论文、期刊、研究方法……"
+          : "Search topics, papers, journals, methods…";
+        document.title = currentLanguage === "zh"
           ? "Wentao Liu | 理论与计算物理"
           : "Wentao Liu | Theoretical & Computational Physics";
-        if (description) {
-          description.content = selected === "zh" ? chineseDescription : englishDescription;
-        }
-        try { localStorage.setItem("preferred-language", selected); } catch (_) {}
+        if (description) description.content = currentLanguage === "zh" ? chineseDescription : englishDescription;
+        renderFocus();
+        renderSearch(searchInput.value);
+        try { localStorage.setItem("preferred-language", currentLanguage); } catch (_) {}
       };
 
       document.querySelectorAll("[data-language-button]").forEach((button) => {
         button.addEventListener("click", () => setLanguage(button.dataset.languageButton));
       });
+      document.querySelectorAll("[data-focus]").forEach((button) => {
+        button.addEventListener("click", () => {
+          currentFocus = button.dataset.focus;
+          renderFocus();
+        });
+      });
+      document.querySelectorAll("[data-open-search]").forEach((button) => {
+        button.addEventListener("click", () => {
+          renderSearch(searchInput.value);
+          if (typeof searchDialog.showModal === "function") searchDialog.showModal();
+          else searchDialog.setAttribute("open", "");
+          requestAnimationFrame(() => searchInput.focus());
+        });
+      });
+      searchInput.addEventListener("input", () => renderSearch(searchInput.value));
+      document.querySelectorAll(".mobile-nav a, .mobile-nav button").forEach((item) => {
+        item.addEventListener("click", () => item.closest("details")?.removeAttribute("open"));
+      });
+
+      if ("IntersectionObserver" in window) {
+        const primaryLinks = [...document.querySelectorAll('.side-nav > ul a[href^="#"]')];
+        const observed = primaryLinks.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+        const observer = new IntersectionObserver((entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          primaryLinks.forEach((link) => {
+            if (link.getAttribute("href") === `#${visible.target.id}`) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+          });
+        }, { rootMargin: "-20% 0px -65%", threshold: [0, .2, .5] });
+        observed.forEach((section) => observer.observe(section));
+      }
 
       let preferred = "en";
       try { preferred = localStorage.getItem("preferred-language") || "en"; } catch (_) {}
